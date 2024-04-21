@@ -2,7 +2,6 @@ package com.flutter.english.learning.webapp.backend.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -53,5 +52,9 @@ public class User {
 
     public String getPasswordConfirmation() {
         return passwordConfirmation;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
