@@ -58,6 +58,15 @@ public class UserController {
         );
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
+    @PostMapping("/logout")
+    public User Update(@RequestBody User user) {
+        User oldUser = userRepository.findByUsername(user.getUsername());
+        oldUser.setSessionId(null);
+        userRepository.flush();
+        return userRepository.save(oldUser);
+    }
+
     @Bean
     private PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
