@@ -9,13 +9,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.servlet.http.HttpSession;
 
 @Entity
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"username", "email"})})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
+    Integer uid;
 
     String username;
 
@@ -29,6 +30,7 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String passwordConfirmation;
 
+    String sessionId;
 
     private User(){
     }
@@ -56,5 +58,17 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }

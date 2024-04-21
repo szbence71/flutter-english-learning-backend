@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.flutter.english.learning.webapp.backend.api.repositories.UserRepository;
+
+import jakarta.servlet.http.HttpSession;
+
 import com.flutter.english.learning.webapp.backend.api.entities.User;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,19 +36,23 @@ public class UserController {
         );
         String encodedPassword = passwordEncoder().encode(user.getPassword());
         user.setPassword(encodedPassword);
-        System.out.println(user.getPassword());
-        System.out.println(encodedPassword);
         return userRepository.save(user);
     }
     
     @CrossOrigin(origins="http://localhost:8080")
     @PostMapping("/login")
-    public User Login(@RequestBody User user) {
+    public User Login(@RequestBody User user, HttpSession session) {
         User oldUser = userRepository.findByUsername(user.getUsername());
         if (oldUser == null) throw new ResponseStatusException(
             HttpStatus.NOT_FOUND, "USER_NOT_FOUND"
         );
-        if (passwordEncoder().matches(user.getPassword(), oldUser.getPassword())) return oldUser;
+        if (passwordEncoder().matches(user.getPassword(), oldUser.getPassword())) {
+            session.setAttribute("userId", oldUser.getUid());
+            String sessionId = session.getId();
+            oldUser.setSessionId(sessionId);
+            userRepository.flush();
+            return oldUser;
+        }
         throw new ResponseStatusException(
             HttpStatus.BAD_REQUEST, "WRONG_PASSWORD"
         );
