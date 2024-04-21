@@ -6,4 +6,6 @@ import com.flutter.english.learning.webapp.backend.api.entities.User;
 
 public interface UserRepository extends JpaRepository<User,Integer>{
     User findByUsernameAndPassword(String username, String password);
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
 }
