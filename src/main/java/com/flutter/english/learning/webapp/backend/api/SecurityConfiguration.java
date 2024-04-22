@@ -19,6 +19,6 @@ public class SecurityConfiguration {
     // TODO következő requesteket is hozzáadni........
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/login", "/register", "/logout").anyRequest();
+        return (web) -> web.ignoring().requestMatchers("/login", "/register", "/logout", "/achievements", "/achievement/validate").anyRequest();
     }
 }

@@ -1,15 +1,17 @@
 package com.flutter.english.learning.webapp.backend.api.entities;
 
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
-import jakarta.servlet.http.HttpSession;
 
 @Entity
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"username", "email"})})
@@ -31,6 +33,9 @@ public class User {
     String passwordConfirmation;
 
     String sessionId;
+
+    @OneToMany
+    private Set<Achievement> achievements;
 
     private User(){
     }
