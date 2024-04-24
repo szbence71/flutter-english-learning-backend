@@ -23,29 +23,29 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @CrossOrigin(origins="http://localhost:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/register")
     public User Register(@RequestBody User user) {
         boolean emailTaken = userRepository.existsByEmail(user.getEmail());
         boolean usernameTaken = userRepository.existsByUsername(user.getUsername());
-        if (usernameTaken) throw new ResponseStatusException(
-            HttpStatus.CONFLICT, "USERNAME_TAKEN"
-        );
-        if (emailTaken) throw new ResponseStatusException(
-            HttpStatus.CONFLICT, "EMAIL_TAKEN"
-        );
+        if (usernameTaken)
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT, "USERNAME_TAKEN");
+        if (emailTaken)
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT, "EMAIL_TAKEN");
         String encodedPassword = passwordEncoder().encode(user.getPassword());
         user.setPassword(encodedPassword);
         return userRepository.save(user);
     }
-    
-    @CrossOrigin(origins="http://localhost:8080")
+
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/login")
     public User Login(@RequestBody User user, HttpSession session) {
         User oldUser = userRepository.findByUsername(user.getUsername());
-        if (oldUser == null) throw new ResponseStatusException(
-            HttpStatus.NOT_FOUND, "USER_NOT_FOUND"
-        );
+        if (oldUser == null)
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "USER_NOT_FOUND");
         if (passwordEncoder().matches(user.getPassword(), oldUser.getPassword())) {
             session.setAttribute("userId", oldUser.getUid());
             String sessionId = session.getId();
@@ -54,8 +54,7 @@ public class UserController {
             return oldUser;
         }
         throw new ResponseStatusException(
-            HttpStatus.BAD_REQUEST, "WRONG_PASSWORD"
-        );
+                HttpStatus.BAD_REQUEST, "WRONG_PASSWORD");
     }
 
     @CrossOrigin(origins = "http://localhost:8080")
@@ -65,6 +64,13 @@ public class UserController {
         oldUser.setSessionId(null);
         userRepository.flush();
         return userRepository.save(oldUser);
+    }
+
+    @CrossOrigin(origins = "http://localhost:8080")
+    @PostMapping("/getusergamescount")
+    public Integer getUserGamesCount(@RequestBody User user) {
+        User oldUser = userRepository.findBySessionId(user.getSessionId());
+        return oldUser.getGamesPlayed();
     }
 
     @Bean

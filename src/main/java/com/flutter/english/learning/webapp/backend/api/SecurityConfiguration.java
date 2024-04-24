@@ -11,14 +11,16 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests((authz) -> authz
-                .anyRequest().permitAll());
+                .authorizeHttpRequests((authz) -> authz
+                        .anyRequest().permitAll());
         return http.build();
     }
 
     // TODO következő requesteket is hozzáadni........
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/login", "/register", "/logout", "/achievements", "/achievement/validate").anyRequest();
+        return (web) -> web.ignoring()
+                .requestMatchers("/login", "/register", "/logout", "/achievements", "/achievement/validate", "/userachievements", "/getusergamescount")
+                .anyRequest();
     }
 }

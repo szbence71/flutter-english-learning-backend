@@ -14,7 +14,7 @@ import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(uniqueConstraints={@UniqueConstraint(columnNames={"username", "email"})})
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "username", "email", "achievements" }) })
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,13 +34,15 @@ public class User {
 
     String sessionId;
 
+    Integer gamesPlayed = 0;
+
     @OneToMany
     private Set<Achievement> achievements;
 
-    private User(){
+    private User() {
     }
 
-    protected User(String username, String password){
+    protected User(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -52,7 +54,7 @@ public class User {
     public String getPassword() {
         return password;
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -75,5 +77,17 @@ public class User {
 
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public Set<Achievement> getAchievements() {
+        return achievements;
+    }
+
+    public Integer getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    public void setGamesPlayed(Integer gamesPlayed) {
+        this.gamesPlayed = gamesPlayed;
     }
 }

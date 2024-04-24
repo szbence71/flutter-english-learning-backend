@@ -38,4 +38,8 @@ public class Achievement {
     public boolean getIsTrue() {
         return isTrue;
     }
+
+    public void setIsTrue(boolean isTrue) {
+        this.isTrue = isTrue;
+    }
 }

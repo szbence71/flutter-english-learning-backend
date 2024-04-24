@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.flutter.english.learning.webapp.backend.api.entities.Achievement;
 
-public interface AchievementRepository extends JpaRepository<Achievement,Integer> {
+public interface AchievementRepository extends JpaRepository<Achievement, Integer> {
     Achievement findByAid(Integer aid);
+
     List<Achievement> findAll();
 }
