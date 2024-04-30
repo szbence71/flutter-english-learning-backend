@@ -41,7 +41,7 @@ public class AchievementController {
     
             for (Achievement achievement : allAchievements) {
                 // Validate specific achievements based on IDs and user's games played
-                if (achievement.getAid() == 1 && user.getGamesPlayed() == 0 && !user.getAchievements().contains(achievement)) {
+                if (achievement.getAid() == 1 && user.getGamesPlayed() >= 0 && !user.getAchievements().contains(achievement)) {
                     // First login achievement
                     achievement.setIsTrue(true);
                     user.getAchievements().add(achievement);
