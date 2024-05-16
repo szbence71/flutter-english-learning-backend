@@ -3,15 +3,16 @@ package com.flutter.english.learning.webapp.backend.api.entities;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.ElementCollection;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -40,8 +41,12 @@ public class User {
 
     Integer gamesPlayed = 0;
 
-    @OneToMany
+    @ManyToMany
     private Set<Achievement> achievements;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<UserWord> userWords;
 
     private User() {
     }
@@ -93,5 +98,13 @@ public class User {
 
     public void setGamesPlayed(Integer gamesPlayed) {
         this.gamesPlayed = gamesPlayed;
+    }
+
+    public List<UserWord> getUserWord() {
+        return userWords;
+    }
+
+    public void setUserWord(List<UserWord> userWords) {
+        this.userWords = userWords;
     }
 }
