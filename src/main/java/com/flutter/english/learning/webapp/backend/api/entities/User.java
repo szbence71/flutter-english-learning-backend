@@ -48,7 +48,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserWord> userWords;
 
-    private User() {
+    public User() {
     }
 
     protected User(String username, String password) {
