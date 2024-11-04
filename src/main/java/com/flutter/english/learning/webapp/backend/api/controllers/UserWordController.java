@@ -52,4 +52,16 @@ public class UserWordController {
         userWordRepository.deleteById(userWordId);
         return ResponseEntity.ok().build();
     }
+
+    @CrossOrigin(origins = "http://localhost:8080")
+    @PostMapping(value = "/getuserwordstranslated", produces = "application/json;charset=UTF-8")
+    public List<UserWord> getUserWordsTranslatedByUserId(@RequestBody User oldUser) {
+        User user = userRepository.findBySessionId(oldUser.getSessionId());
+        if (user == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "USER_NOT_FOUND");
+        }
+        List<UserWord> userWords = userWordRepository.findByUser(user);
+        return userWords;
+    }
 }

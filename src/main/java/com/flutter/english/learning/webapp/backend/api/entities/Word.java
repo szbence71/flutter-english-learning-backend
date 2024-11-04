@@ -13,7 +13,7 @@ public class Word {
     String original;
     String translated;
 
-    private Word() {
+    public Word() {
     }
 
     public Long getWid() {

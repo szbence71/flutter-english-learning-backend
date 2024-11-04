@@ -20,7 +20,7 @@ public class SecurityConfiguration {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .requestMatchers("/login", "/register", "/logout", "/achievements", "/achievement/validate", "/userachievements", "/getusergamescount", "/getallquiz", "/getallwords")
+                .requestMatchers("/login", "/register", "/logout", "/achievements", "/achievement/validate", "/userachievements", "/getusergamescount", "/getallquiz", "/getallwords", "/getuserwordstranslated")
                 .anyRequest();
     }
 }
