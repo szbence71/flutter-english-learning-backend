@@ -15,7 +15,7 @@ public class Achievement {
     String description;
     boolean isTrue;
 
-    private Achievement() {
+    public Achievement() {
     }
 
     protected Achievement(String title, String description) {
