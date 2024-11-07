@@ -40,6 +40,7 @@ public class User {
     String sessionId;
 
     Integer gamesPlayed = 0;
+    Integer hardGamesPlayed = 0;
 
     @ManyToMany
     private Set<Achievement> achievements;
@@ -98,6 +99,14 @@ public class User {
 
     public void setGamesPlayed(Integer gamesPlayed) {
         this.gamesPlayed = gamesPlayed;
+    }
+
+    public Integer getHardGamesPlayed() {
+        return hardGamesPlayed;
+    }
+
+    public void setHardGamesPlayed(Integer hardGamesPlayed) {
+        this.hardGamesPlayed = hardGamesPlayed;
     }
 
     public List<UserWord> getUserWord() {

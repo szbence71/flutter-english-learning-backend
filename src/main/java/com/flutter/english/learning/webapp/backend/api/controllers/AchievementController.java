@@ -34,7 +34,6 @@ public class AchievementController {
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "USER_NOT_FOUND");
         }
-    
         try {
             List<Achievement> validatedAchievements = new ArrayList<>();
             List<Achievement> allAchievements = achievementRepository.findAll();

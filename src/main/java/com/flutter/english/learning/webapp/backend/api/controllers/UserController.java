@@ -75,14 +75,32 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:8080")
+    @PostMapping("/getuserhardgamescount")
+    public Integer getUserHardGamesCount(@RequestBody User user) {
+        User oldUser = userRepository.findBySessionId(user.getSessionId());
+        return oldUser.getHardGamesPlayed();
+    }
+
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping(value = "/increaserusergamesplayed", produces = "application/json;charset=UTF-8")
     @ResponseStatus(value = HttpStatus.OK)
-    public Integer postMethodName(@RequestBody User user) {
+    public Integer increaseUserGamesPlayed(@RequestBody User user) {
         User oldUser = userRepository.findBySessionId(user.getSessionId());
         oldUser.setGamesPlayed(oldUser.getGamesPlayed()+1);
         userRepository.flush();
         userRepository.save(oldUser);
         return oldUser.getGamesPlayed();
+    }
+
+    @CrossOrigin(origins = "http://localhost:8080")
+    @PostMapping(value = "/increaseruserhardgamesplayed", produces = "application/json;charset=UTF-8")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Integer increaseUserHardGamesPlayed(@RequestBody User user) {
+        User oldUser = userRepository.findBySessionId(user.getSessionId());
+        oldUser.setHardGamesPlayed(oldUser.getHardGamesPlayed()+1);
+        userRepository.flush();
+        userRepository.save(oldUser);
+        return oldUser.getHardGamesPlayed();
     }
 
     @Bean
