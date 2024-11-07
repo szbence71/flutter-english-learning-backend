@@ -41,17 +41,17 @@ public class AchievementController {
     
             for (Achievement achievement : allAchievements) {
                 // Validate specific achievements based on IDs and user's games played
-                if (achievement.getAid() == 1 && user.getGamesPlayed() >= 0 && !user.getAchievements().contains(achievement)) {
+                if (achievement.getStrid().contains("first_login") && user.getGamesPlayed() >= 0 && !user.getAchievements().contains(achievement)) {
                     // First login achievement
                     achievement.setIsTrue(true);
                     user.getAchievements().add(achievement);
                     validatedAchievements.add(achievement);
-                } else if (achievement.getAid() == 2 && user.getGamesPlayed() >= 5 && !user.getAchievements().contains(achievement)) {
+                } else if (achievement.getStrid().contains("play_five") && user.getGamesPlayed() >= 5 && !user.getAchievements().contains(achievement)) {
                     // Play 5 games achievement
                     achievement.setIsTrue(true);
                     user.getAchievements().add(achievement);
                     validatedAchievements.add(achievement);
-                } else if (achievement.getAid() == 3 && user.getGamesPlayed() >= 50 && !user.getAchievements().contains(achievement)) {
+                } else if (achievement.getStrid().contains("play_fifty") && user.getGamesPlayed() >= 50 && !user.getAchievements().contains(achievement)) {
                     // Play 50 games achievement
                     achievement.setIsTrue(true);
                     user.getAchievements().add(achievement);

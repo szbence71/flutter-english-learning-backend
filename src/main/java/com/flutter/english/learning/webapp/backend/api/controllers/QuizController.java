@@ -20,7 +20,14 @@ public class QuizController {
     @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping(value = "/getallquiz", produces = "application/json;charset=UTF-8")
     public List<Quiz> getAllQuiz() {
-        List<Quiz> quizList = quizRepository.findAll();
+        List<Quiz> quizList = quizRepository.findByHard(false);
+    return quizList;
+    }
+
+    @CrossOrigin(origins = "http://localhost:8080")
+    @GetMapping(value = "/getallhardquiz", produces = "application/json;charset=UTF-8")
+    public List<Quiz> getAllHardQuiz() {
+        List<Quiz> quizList = quizRepository.findByHard(true);
     return quizList;
     }
 }

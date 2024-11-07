@@ -8,6 +8,5 @@ import com.flutter.english.learning.webapp.backend.api.entities.Achievement;
 
 public interface AchievementRepository extends JpaRepository<Achievement, Integer> {
     Achievement findByAid(Integer aid);
-
     List<Achievement> findAll();
 }

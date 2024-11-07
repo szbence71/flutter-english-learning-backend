@@ -18,6 +18,12 @@ public class WordController {
     @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping(value = "/getallwords", produces = "application/json;charset=UTF-8")
     public List<Word> getAllWords() {
-        return wordRepository.findAll();
+        return wordRepository.findByHard(false);
+    }
+
+    @CrossOrigin(origins = "http://localhost:8080")
+    @GetMapping(value = "/getallhardwords", produces = "application/json;charset=UTF-8")
+    public List<Word> getAllHardWords() {
+        return wordRepository.findByHard(true);
     }
 }

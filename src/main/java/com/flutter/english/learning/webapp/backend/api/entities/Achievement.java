@@ -4,8 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
+@Table(uniqueConstraints =  @UniqueConstraint(columnNames = { "strid" }))
 public class Achievement {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,6 +16,7 @@ public class Achievement {
 
     String title;
     String description;
+    String strid;
     boolean isTrue;
 
     public Achievement() {
@@ -41,5 +45,9 @@ public class Achievement {
 
     public void setIsTrue(boolean isTrue) {
         this.isTrue = isTrue;
+    }
+
+    public String getStrid() {
+        return strid;
     }
 }

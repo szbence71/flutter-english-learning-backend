@@ -7,8 +7,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
+@Table(uniqueConstraints =  @UniqueConstraint(columnNames = { "question" }))
 public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +23,7 @@ public class Quiz {
     private List<String> options;
 
     private String correctAnswer;
+    private Boolean hard;
 
     public Long getQid() {
         return qid;
@@ -51,5 +55,13 @@ public class Quiz {
 
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
+    }
+
+    public Boolean getHard() {
+        return hard;
+    }
+
+    public void setHard(Boolean hard) {
+        this.hard = hard;
     }
 }
