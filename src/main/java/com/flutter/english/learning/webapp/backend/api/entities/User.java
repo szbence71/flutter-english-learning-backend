@@ -41,6 +41,7 @@ public class User {
 
     Integer gamesPlayed = 0;
     Integer hardGamesPlayed = 0;
+    Integer score = 0;
 
     @ManyToMany
     private Set<Achievement> achievements;
@@ -115,5 +116,13 @@ public class User {
 
     public void setUserWord(List<UserWord> userWords) {
         this.userWords = userWords;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }

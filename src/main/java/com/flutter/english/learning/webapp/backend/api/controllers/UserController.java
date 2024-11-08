@@ -1,5 +1,7 @@
 package com.flutter.english.learning.webapp.backend.api.controllers;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import com.flutter.english.learning.webapp.backend.api.repositories.UserReposito
 
 import jakarta.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flutter.english.learning.webapp.backend.api.entities.User;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -86,7 +89,7 @@ public class UserController {
     @ResponseStatus(value = HttpStatus.OK)
     public Integer increaseUserGamesPlayed(@RequestBody User user) {
         User oldUser = userRepository.findBySessionId(user.getSessionId());
-        oldUser.setGamesPlayed(oldUser.getGamesPlayed()+1);
+        oldUser.setGamesPlayed(oldUser.getGamesPlayed() + 1);
         userRepository.flush();
         userRepository.save(oldUser);
         return oldUser.getGamesPlayed();
@@ -97,10 +100,37 @@ public class UserController {
     @ResponseStatus(value = HttpStatus.OK)
     public Integer increaseUserHardGamesPlayed(@RequestBody User user) {
         User oldUser = userRepository.findBySessionId(user.getSessionId());
-        oldUser.setHardGamesPlayed(oldUser.getHardGamesPlayed()+1);
+        oldUser.setHardGamesPlayed(oldUser.getHardGamesPlayed() + 1);
         userRepository.flush();
         userRepository.save(oldUser);
         return oldUser.getHardGamesPlayed();
+    }
+
+    @CrossOrigin(origins = "http://localhost:8080")
+    @PostMapping("/getuserscore")
+    public Integer getUserScore(@RequestBody User user) {
+        User oldUser = userRepository.findBySessionId(user.getSessionId());
+        return oldUser.getScore();
+    }
+
+    @CrossOrigin(origins = "http://localhost:8080")
+    @PostMapping(value = "/increaseuserscore", produces = "application/json;charset=UTF-8")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Integer increaseUserScore(@RequestBody Map<String, Object> requestData) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // Extract and deserialize the "user" part of the JSON into a User object
+        User user = objectMapper.convertValue(requestData.get("user"), User.class);
+        Integer score = (Integer) requestData.get("score");
+
+        if (user != null && score != null) {
+            User oldUser = userRepository.findBySessionId(user.getSessionId());
+            oldUser.setScore(oldUser.getScore() + score);
+            userRepository.save(oldUser);
+            return oldUser.getScore();
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User or score is invalid.");
+        }
     }
 
     @Bean

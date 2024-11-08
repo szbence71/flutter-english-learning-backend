@@ -21,7 +21,7 @@ public class SecurityConfiguration {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
                 .requestMatchers("/login", "/register", "/logout", "/achievements", "/achievement/validate", "/userachievements", "/getusergamescount", "/getallquiz", 
-                    "/getallwords", "/getuserwordstranslated", "/getallhardwords", "/getallhardquiz", "/getuserhardgamescount")
+                    "/getallwords", "/getuserwordstranslated", "/getallhardwords", "/getallhardquiz", "/getuserhardgamescount", "/getuserscore")
                 .anyRequest();
     }
 }
