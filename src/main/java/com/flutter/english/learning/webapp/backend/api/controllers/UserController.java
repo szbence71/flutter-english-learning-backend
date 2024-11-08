@@ -118,8 +118,6 @@ public class UserController {
     @ResponseStatus(value = HttpStatus.OK)
     public Integer increaseUserScore(@RequestBody Map<String, Object> requestData) {
         ObjectMapper objectMapper = new ObjectMapper();
-
-        // Extract and deserialize the "user" part of the JSON into a User object
         User user = objectMapper.convertValue(requestData.get("user"), User.class);
         Integer score = (Integer) requestData.get("score");
 
