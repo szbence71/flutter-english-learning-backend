@@ -42,7 +42,7 @@ public class User {
     Integer gamesPlayed = 0;
     Integer hardGamesPlayed = 0;
     Integer score = 0;
-    Boolean hard;
+    Boolean hard = false;
 
     @ManyToMany
     private Set<Achievement> achievements;
