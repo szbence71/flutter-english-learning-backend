@@ -42,6 +42,7 @@ public class User {
     Integer gamesPlayed = 0;
     Integer hardGamesPlayed = 0;
     Integer score = 0;
+    Boolean hard;
 
     @ManyToMany
     private Set<Achievement> achievements;
@@ -124,5 +125,13 @@ public class User {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public Boolean getHard() {
+        return hard;
+    }
+
+    public void setHard (Boolean hard) {
+        this.hard = hard;
     }
 }

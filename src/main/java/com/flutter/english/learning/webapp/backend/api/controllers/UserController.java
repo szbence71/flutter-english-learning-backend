@@ -131,6 +131,36 @@ public class UserController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
+    @PostMapping(value = "/unlockHardStatus", produces = "application/json;charset=UTF-8")
+    @ResponseStatus(value = HttpStatus.OK)
+    public String unlockHardStatus(@RequestBody User user) {
+        User oldUser = userRepository.findBySessionId(user.getSessionId());
+        if (oldUser == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "USER_NOT_FOUND");
+        }
+        if (oldUser.getScore() < 500) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "NOT_ENOUGH_POINTS");
+        }
+        if (Boolean.TRUE.equals(oldUser.getHard())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "STATUS_ALREADY_UNLOCKED");
+        }
+        oldUser.setScore(oldUser.getScore() - 500);
+        oldUser.setHard(true);
+        userRepository.save(oldUser);
+        return "HARD_STATUS_UNLOCKED";
+    }
+
+    @CrossOrigin(origins = "http://localhost:8080")
+    @PostMapping("/checkHardStatus")
+    public Boolean checkHardStatus(@RequestBody User user) {
+        User oldUser = userRepository.findBySessionId(user.getSessionId());
+        if (oldUser == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "USER_NOT_FOUND");
+        }
+        return oldUser.getHard();
+    }
+
     @Bean
     private PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
