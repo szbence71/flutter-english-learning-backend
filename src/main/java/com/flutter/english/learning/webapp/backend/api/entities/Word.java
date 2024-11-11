@@ -16,6 +16,7 @@ public class Word {
     String original;
     String translated;
     Boolean hard;
+    String type;
 
     public Word() {
     }
@@ -46,5 +47,13 @@ public class Word {
 
     public void setHard(Boolean hard) {
         this.hard = hard;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -8,4 +8,5 @@ import com.flutter.english.learning.webapp.backend.api.entities.Word;
 
 public interface WordRepository extends JpaRepository<Word, Long> {
     List<Word> findByHard(Boolean hard);
+    List<Word> findByHardAndType(Boolean hard, String type);
 }
